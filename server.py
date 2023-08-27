@@ -108,7 +108,7 @@ def send_receive_client_message(client_connection, client_ip_addr):
         client_msg = data
 
         idx = get_client_index(clients,client_connection)
-        sending_client_name = client_name[idx]
+        sending_client_name = clients_names[idx]
 
         for c in clients:
             if c != client_connection:

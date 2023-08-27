@@ -69,7 +69,7 @@ def connect_to_server(name):
 
 def receive_message_from_server(sck, m):
     while True:
-        from_server = sck.recv(4096).decode()
+        from_server = sck.recv(4096).decode("utf-8")
 
         if not from_server: break
 
@@ -86,8 +86,6 @@ def receive_message_from_server(sck, m):
 
         tkDisplay.config(state=tk.DISABLED)
         tkDisplay.see(tk.END)
-
-        # print("Server says: " +from_server)
 
     sck.close()
     window.destroy()
