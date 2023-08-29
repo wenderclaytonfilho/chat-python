@@ -17,6 +17,7 @@ clients_names = []
 #Janela do servidor
 window = tk.Tk()
 window.title("Server")
+window.resizable(False,False)
 
 top_frame = tk.Frame(window)
 btn_start = tk.Button(top_frame, text="Conectar", command=lambda:start_server())

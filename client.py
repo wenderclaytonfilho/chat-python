@@ -44,7 +44,7 @@ def connect():
         connect_to_server(username)
 
 
-# network client
+
 client = None
 HOST_ADDR = "localhost"
 HOST_PORT = 8080
@@ -54,17 +54,15 @@ def connect_to_server(name):
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.connect((HOST_ADDR, HOST_PORT))
-        client.send(name.encode()) # Send name to server after connecting
+        client.send(name.encode()) 
 
         entName.config(state=tk.DISABLED)
         btnConnect.config(state=tk.DISABLED)
         tkMessage.config(state=tk.NORMAL)
 
-        # start a thread to keep receiving message from server
-        # do not block the main thread :)
         threading._start_new_thread(receive_message_from_server, (client, "m"))
     except Exception as e:
-        tk.messagebox.showerror(title="ERROR!!!", message="Cannot connect to host: " + HOST_ADDR + " on port: " + str(HOST_PORT) + " Server may be Unavailable. Try again later")
+        tk.messagebox.showerror(title="ERROR!!!", message="Não foi possível conectar ao Host: " + HOST_ADDR + " na porta: " + str(HOST_PORT) + " O servidor está offline!")
 
 
 def receive_message_from_server(sck, m):
@@ -73,10 +71,7 @@ def receive_message_from_server(sck, m):
 
         if not from_server: break
 
-        # display message from server on the chat window
 
-        # enable the display area and insert the text and then disable.
-        # why? Apparently, tkinter does not allow us insert into a disabled Text widget :(
         texts = tkDisplay.get("1.0", tk.END).strip()
         tkDisplay.config(state=tk.NORMAL)
         if len(texts) < 1:
@@ -96,8 +91,6 @@ def getChatMessage(msg):
     msg = msg.replace('\n', '')
     texts = tkDisplay.get("1.0", tk.END).strip()
 
-    # enable the display area and insert the text and then disable.
-    # why? Apparently, tkinter does not allow use insert into a disabled Text widget :(
     tkDisplay.config(state=tk.NORMAL)
     if len(texts) < 1:
         tkDisplay.insert(tk.END, "Você->" + msg, "tag_your_message") # no line
